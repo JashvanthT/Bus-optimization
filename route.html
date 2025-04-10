@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bus Routes</title>
+  <link rel="stylesheet" href="style1.css" />
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .bus-card {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .bus-card:hover {
+      transform: translateY(-5px);
+      background-color: #f0f8ff;
+    }
+
+    .bus-number {
+      color: rgb(13, 41, 177);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .bus-route {
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="top-menu">
+        <ul>
+          <li onclick="location.href='index.html'">Dashboard</li>
+          <li class="active">Bus Routes</li>
+        </ul>
+      </div>
+      <div class="bottom-menu">
+        <ul>
+          <li onclick="location.href='profile.html'">Profile</li>
+          <li>Settings</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="navbar">
+        <input type="text" placeholder="Search buses..." class="search-bar" onkeyup="filterBuses(this.value)"/>
+        <div class="admin-section">
+          <span class="notif">🔔</span>
+          <img class="admin-avatar" src="kaml.jpg">
+          <div class="admin-name">
+            <p class="name"></p>
+            <p class="role">Admin</p>
+          </div>
+        </div>
+      </header>
+
+      <section>
+        <h2 style="padding: 20px 20px 0;">All Bus Routes</h2>
+        <div id="busGrid" class="grid-container"></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const buses = [
+      { number: "11", route: "Nugambakkam" },
+      { number: "12", route: "T Nagar" },
+      { number: "13", route: "Velachery" },
+      { number: "14", route: "Tambaram" },
+      { number: "15", route: "Guindy" }
+    ];
+
+    function loadBuses(busList) {
+      const grid = document.getElementById("busGrid");
+      grid.innerHTML = "";
+
+      busList.forEach(bus => {
+        const card = document.createElement("div");
+        card.className = "bus-card";
+
+        card.innerHTML = `
+          <a href="details.html?bus=${bus.number}" style="text-decoration: none; color: inherit;">
+            <div class="bus-number">Bus No. ${bus.number}</div>
+            <div class="bus-route">Route: ${bus.route}</div>
+          </a>
+        `;
+
+        grid.appendChild(card);
+      });
+    }
+
+    function filterBuses(query) {
+      const filtered = buses.filter(bus =>
+        bus.number.includes(query) || bus.route.toLowerCase().includes(query.toLowerCase())
+      );
+      loadBuses(filtered);
+    }
+
+    window.onload = () => {
+      loadBuses(buses);
+    };
+  </script>
+  <script>
+    const adminName = localStorage.getItem("adminName") || "Admin";
+    const nameElement = document.querySelector(".admin-name .name");
+    if (nameElement) {
+      nameElement.innerText = adminName;
+    }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bus App Login</title>
+  <link rel="stylesheet" href="style2.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <style>
+    .error {
+      color: red;
+      font-size: 0.8rem;
+      margin: 5px 0 10px;
+      display: none;
+    }
+    input {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-box {
+      width: 300px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 10px;
+      background-color: #f5f5f5;
+      position: relative;
+    }
+    .password-container {
+      position: relative;
+    }
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <form class="login-box" onsubmit="return validateForm()">
+      <h2>Bus App Login</h2>
+
+      <input type="text" id="name" placeholder="Name" />
+      <div id="nameError" class="error">Name is required</div>
+
+      <input type="email" id="email" placeholder="Email" />
+      <div id="emailError" class="error">Enter a valid email address</div>
+
+      <input type="tel" id="phone" placeholder="Phone Number" />
+      <div id="phoneError" class="error">Phone number must be 10 digits</div>
+
+      <div class="password-container">
+        <input type="password" id="password" placeholder="Password" />
+        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+      </div>
+      <div id="passwordError" class="error">
+        Password must have letters, numbers & special characters
+      </div>
+
+      <button type="submit">Login</button>
+      <p class="forgot">Forgot Password?</p>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      const nameError = document.getElementById("nameError");
+      const emailError = document.getElementById("emailError");
+      const phoneError = document.getElementById("phoneError");
+      const passwordError = document.getElementById("passwordError");
+
+      nameError.style.display = "none";
+      emailError.style.display = "none";
+      phoneError.style.display = "none";
+      passwordError.style.display = "none";
+
+      let isValid = true;
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10}$/;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,}$/;
+
+      if (name === "") {
+        nameError.style.display = "block";
+        isValid = false;
+      }
+
+      if (email === "" || !emailRegex.test(email)) {
+        emailError.style.display = "block";
+        isValid = false;
+      }
+
+      if (phone === "" || !phoneRegex.test(phone)) {
+        phoneError.style.display = "block";
+        isValid = false;
+      }
+
+      if (password === "" || !passwordRegex.test(password)) {
+        passwordError.style.display = "block";
+        isValid = false;
+      }
+
+      if (isValid) {
+        localStorage.setItem("adminName", name);
+        window.location.href = "index.html";
+      }
+
+      return false;
+    }
+
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
+
+    togglePassword.addEventListener("click", () => {
+    const isPassword = passwordInput.getAttribute("type") === "password";
+    passwordInput.setAttribute("type", isPassword ? "text" : "password");
+
+    if (isPassword) {
+        togglePassword.classList.remove("fa-eye-slash");
+        togglePassword.classList.add("fa-eye");
+  } 
+    else {
+        togglePassword.classList.remove("fa-eye");
+        togglePassword.classList.add("fa-eye-slash");
+  }
+});
+
+    
+  </script>
+</body>
+</html>
