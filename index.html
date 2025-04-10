@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bus Optimization Dashboard</title>
+  <link rel="stylesheet" href="style1.css" />
+</head>
+<body>
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="top-menu">
+        <ul>
+          <li> Dashboard</li>
+          <li onclick="location.href='route.html'"> Bus Routes</li>
+        </ul>
+      </div>
+      <div class="bottom-menu">
+        <ul>
+          <li onclick="location.href='profile.html'">Profile</li>
+          <li>Settings</li>
+          <li>Logout</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="navbar">
+        <input type="text" placeholder="Search..." class="search-bar"/>
+        <div class="admin-section">
+          <span class="notif">🔔</span>
+          <img class="admin-avatar" src="kaml.jpg">
+          <div class="admin-name">
+            <p class="name"></p>
+            <p class="role">Admin</p>
+          </div>
+        </div>
+      </header>
+
+
+      <section class="map-wrapper">
+        <iframe 
+        width="100%" 
+        height="100%" 
+
+        src="https://www.openstreetmap.org/export/embed.html?bbox=80.200%2C13.000%2C80.300%2C13.150&layer=mapnik" 
+        style="border: none;"
+      ></iframe>
+      
+      </section>
+    </main>
+  </div>
+  <script>
+    const adminName = localStorage.getItem("adminName") || "Admin";
+    const nameElement = document.querySelector(".admin-name .name");
+    if (nameElement) {
+      nameElement.innerText = adminName;
+    }
+  </script>
+  
+</body>
+</html>
