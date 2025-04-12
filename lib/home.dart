@@ -84,7 +84,7 @@ class _HomeState extends State<Home> {
                           elevation: 10,
                           shadowColor: Colors.black,
 
-                        ), child:Text("Sign up",style: TextStyle(
+                        ), child:Text("Sign In",style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 15
                         ),)),

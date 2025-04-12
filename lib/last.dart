@@ -1,4 +1,5 @@
 import 'package:busapp/home.dart';
+import 'package:busapp/open.dart';
 import 'package:busapp/show.dart'; // Importing show.dart
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,8 @@ class _LastState extends State<Last> {
 
   void _onItemTapped(int index) {
     if (index == 0) {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context,
+          MaterialPageRoute(builder: (context) => Entrance(studentName: "guest")));
     } else if (index == 1) {
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => Detail()));
@@ -94,18 +96,54 @@ class _LastState extends State<Last> {
 
             Spacer(),
 
-            // Log-Out Row
+            // Log-Out Row with confirmation dialog
             Row(
               children: [
-                Text(
-                  "Log-Out",
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 22,
+                GestureDetector(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("Confirm Logout"),
+                          content: Text("Are you sure you want to log out?"),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close dialog
+                              },
+                              child: Text("Cancel"),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close dialog
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => Home()),
+                                );
+                              },
+                              child: Text("Logout"),
+                            ),
+                           
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        "Log-Out",
+                        style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 22,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Icon(Icons.logout, size: 24, color: Colors.red),
+                    ],
                   ),
                 ),
-                SizedBox(width: 10),
-                Icon(Icons.logout, size: 24, color: Colors.red),
               ],
             ),
             SizedBox(height: 10),

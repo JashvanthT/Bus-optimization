@@ -34,7 +34,6 @@ class _AcademicState extends State<Academic> {
   final TextEditingController idController = TextEditingController();
   final TextEditingController boardingController = TextEditingController();
   String? selectedGender;
-  String? selectedStatus; // NEW FIELD
 
   Future<void> submitStudentData() async {
     final String apiUrl = "http://10.0.2.2:5000/add_student";
@@ -60,8 +59,6 @@ class _AcademicState extends State<Academic> {
             "digital_id": idController.text,
             "boarding_point": boardingController.text,
             "gender": selectedGender,
-            "attendance": selectedStatus
-
           }),
         );
       } catch (e) {
@@ -75,13 +72,11 @@ class _AcademicState extends State<Academic> {
         'digital_id': idController.text,
         'boarding_point': boardingController.text,
         'gender': selectedGender,
-        'attendance': selectedStatus,
-
         'timestamp': FieldValue.serverTimestamp(),
       });
-      print(" Data saved to Firebase");
+      print("Data saved to Firebase");
     } catch (e) {
-      print(" Failed to save to Firebase: $e");
+      print("Failed to save to Firebase: $e");
     }
   }
 
@@ -202,38 +197,6 @@ class _AcademicState extends State<Academic> {
                             return null;
                           },
                         ),
-                        SizedBox(height: 15),
-
-                        // ✅ NEW Present/Absent Field
-                        DropdownButtonFormField<String>(
-                          value: selectedStatus,
-                          decoration: InputDecoration(
-                            labelText: "Select Attendance",
-                            filled: true,
-                            fillColor: Colors.grey[200],
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          items: ["Present", "Absent"].map((String status) {
-                            return DropdownMenuItem(
-                              value: status,
-                              child: Text(status),
-                            );
-                          }).toList(),
-                          onChanged: (value) {
-                            setState(() {
-                              selectedStatus = value;
-                            });
-                          },
-                          validator: (value) {
-                            if (value == null) {
-                              return "Attendance status is required";
-                            }
-                            return null;
-                          },
-                        ),
-
                         SizedBox(height: 30),
                         SizedBox(
                           width: double.infinity,

@@ -1,5 +1,6 @@
 import 'package:busapp/home.dart';
 import 'package:busapp/last.dart'; // Import last.dart for settings page
+import 'package:busapp/open.dart';
 import 'package:flutter/material.dart';
 import 'package:busapp/stud.dart';
 
@@ -85,7 +86,7 @@ class _DetailState extends State<Detail> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.grey,
+        selectedItemColor: Colors.black,
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home, size: 35),
@@ -102,7 +103,7 @@ class _DetailState extends State<Detail> {
         ],
         onTap: (index) {
           if (index == 0) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Entrance(studentName: "guest")));
           } else if (index == 2) {
             Navigator.push(context, MaterialPageRoute(builder: (context) => Last()));
           }
